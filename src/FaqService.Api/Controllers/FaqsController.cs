@@ -14,6 +14,7 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     [EndpointName("GetAllFAQs")]
     [EndpointSummary("Get All Faq Articles")]
     [EndpointDescription("Returns a list of all FAQ articles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         var faqs = await faqManager.GetAllAsync();
@@ -21,6 +22,11 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [EndpointName("GetById")]
+    [EndpointSummary("Get Faq Article By Id")]
+    [EndpointDescription("Returns a single FAQ article by its Id")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id)
     {
         var faq = await faqManager.GetByIdAsync(id);
@@ -29,6 +35,10 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     }
 
     [HttpPost]
+    [EndpointName("CreateArticle")]
+    [EndpointSummary("Create a new Faq Article")]
+    [EndpointDescription("Creates a new FAQ article and returns the created article")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(CreateFaqRequest request)
     {
         var faq = await faqManager.CreateAsync(request);
@@ -36,6 +46,11 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [EndpointName("UpdateArticle")]
+    [EndpointSummary("Update an existing Faq Article")]
+    [EndpointDescription("Updates an existing FAQ article and returns the updated article")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, CreateFaqRequest request)
     {
         var faq = await faqManager.UpdateAsync(id, request);
@@ -44,6 +59,11 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [EndpointName("DeleteArticle")]
+    [EndpointSummary("Delete an existing Faq Article")]
+    [EndpointDescription("Deletes an existing FAQ article")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
         var deleted = await faqManager.DeleteAsync(id);
