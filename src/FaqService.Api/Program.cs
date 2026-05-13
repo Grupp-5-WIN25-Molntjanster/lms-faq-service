@@ -1,14 +1,23 @@
+using FaqService.Application.Services;
+using FaqService.Domain.Interfaces;
+using FaqService.Infrastructure.Contexts;
+using FaqService.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<FaqDbContext>(o =>
+o.UseInMemoryDatabase("FaqDb"));
+
+builder.Services.AddScoped<IFaqRepository, FaqRepository>();
+builder.Services.AddScoped<FaqManager>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
