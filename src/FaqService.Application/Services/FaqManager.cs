@@ -6,19 +6,19 @@ namespace FaqService.Application.Services;
 
 public class FaqManager(IFaqRepository repository)
 {
-    public async Task<List<FaqDto>> GetAllAsync()
+    public async Task<List<FaqResult>> GetAllAsync()
     {
         var faqs = await repository.GetAllAsync();
         return faqs.Select(ToDto).ToList();
     }
 
-    public async Task<FaqDto?> GetByIdAsync(int id)
+    public async Task<FaqResult?> GetByIdAsync(int id)
     {
         var faq = await repository.GetByIdAsync(id);
         return faq is null ? null : ToDto(faq);
     }
 
-    public async Task<FaqDto?> CreateAsync(CreateFaqRequest request)
+    public async Task<FaqResult?> CreateAsync(FaqRequest request)
     {
         var maxOrder = await repository.GetMaxDisplayOrderAsync();
         var faq = new Faq(request.Title, request.Summary, request.Content, maxOrder + 1);
@@ -26,7 +26,7 @@ public class FaqManager(IFaqRepository repository)
         return created is null ? null : ToDto(created);
     }
 
-    public async Task<FaqDto?> UpdateAsync(int id, CreateFaqRequest request)
+    public async Task<FaqResult?> UpdateAsync(int id, FaqRequest request)
     {
         var existing = await repository.GetByIdAsync(id);
         if (existing is null) return null;
@@ -42,6 +42,6 @@ public class FaqManager(IFaqRepository repository)
         return await repository.DeleteAsync(id);
     }
 
-    static FaqDto ToDto(Faq faq) 
-    => new FaqDto(faq.Id, faq.Title, faq.Summary, faq.Content, faq.DisplayOrder);
+    static FaqResult ToDto(Faq faq) 
+    => new FaqResult(faq.Id, faq.Title, faq.Summary, faq.Content, faq.DisplayOrder);
 }

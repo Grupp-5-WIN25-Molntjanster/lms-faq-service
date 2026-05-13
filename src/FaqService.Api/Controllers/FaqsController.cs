@@ -39,7 +39,7 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     [EndpointSummary("Create a new Faq Article")]
     [EndpointDescription("Creates a new FAQ article and returns the created article")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(CreateFaqRequest request)
+    public async Task<IActionResult> Create(FaqRequest request)
     {
         var faq = await faqManager.CreateAsync(request);
         return CreatedAtAction(nameof(GetById), new { id = faq!.Id }, faq);
@@ -51,7 +51,7 @@ public class FaqsController(FaqManager faqManager) : ControllerBase
     [EndpointDescription("Updates an existing FAQ article and returns the updated article")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(int id, CreateFaqRequest request)
+    public async Task<IActionResult> Update(int id, FaqRequest request)
     {
         var faq = await faqManager.UpdateAsync(id, request);
         if (faq is null) return NotFound();

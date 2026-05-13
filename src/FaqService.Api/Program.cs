@@ -1,3 +1,5 @@
+using FaqService.Api.OpenApi;
+using FaqService.Api.Seed;
 using FaqService.Application.Services;
 using FaqService.Domain.Interfaces;
 using FaqService.Infrastructure.Contexts;
@@ -8,7 +10,9 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+
+// custom OpenApi schema and document transformers
+builder.Services.AddFaqOpenApi();
 
 builder.Services.AddDbContext<FaqDbContext>(o =>
 o.UseInMemoryDatabase("FaqDb"));
@@ -35,5 +39,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// seeds initial data, in a real application this would be done via migrations or a separate seeding process
+await app.SeedDataAsync();
 
 app.Run();

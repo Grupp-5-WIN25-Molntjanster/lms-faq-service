@@ -1,6 +1,6 @@
 ﻿namespace FaqService.Application.DTOs;
 
-public record FaqDto
+public record FaqResult
     (
     int Id,
     string Title,

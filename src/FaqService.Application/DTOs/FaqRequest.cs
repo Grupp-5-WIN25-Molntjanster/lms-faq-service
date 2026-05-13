@@ -1,3 +1,8 @@
 ﻿namespace FaqService.Application.DTOs;
 
-public record CreateFaqRequest(string Title, string Summary, string Content);
+public record FaqRequest
+    (
+    string Title,
+    string Summary,
+    string Content
+    );
