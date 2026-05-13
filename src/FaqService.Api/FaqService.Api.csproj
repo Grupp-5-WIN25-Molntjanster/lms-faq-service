@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FaqService.Application\FaqService.Application.csproj" />
     <ProjectReference Include="..\FaqService.Infrastructure\FaqService.Infrastructure.csproj" />
   </ItemGroup>

@@ -4,7 +4,7 @@ using FaqService.Domain.Interfaces;
 
 namespace FaqService.Application.Services;
 
-public class FaqService(IFaqRepository repository)
+public class FaqManager(IFaqRepository repository)
 {
     public async Task<List<FaqDto>> GetAllAsync()
     {
