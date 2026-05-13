@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FaqService.Api/FaqService.Api.csproj" />
+    <Project Path="src/FaqService.Application/FaqService.Application.csproj" />
+    <Project Path="src/FaqService.Domain/FaqService.Domain.csproj" />
+    <Project Path="src/FaqService.Infrastructure/FaqService.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FaqService.tests.csproj" />
+  </Folder>
+</Solution>
