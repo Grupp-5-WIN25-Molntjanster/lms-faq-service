@@ -9,8 +9,6 @@ public class Faq
     public int DisplayOrder { get; set; }
 
 
-
-
     private Faq() { }
 
 
