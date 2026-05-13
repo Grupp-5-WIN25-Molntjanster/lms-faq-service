@@ -37,16 +37,17 @@ public class FaqRepository(FaqDbContext context) : IFaqRepository
 
     public async Task<Faq?> UpdateAsync(int id, Faq faq)
     {
-        var exsisting = await context.Faqs.FindAsync(id);
-        if(exsisting is null) return null;
+        var existing = await context.Faqs.FindAsync(id);
+        if(existing is null) return null;
 
-        context.Entry(exsisting).CurrentValues.SetValues(faq);
+        context.Entry(existing).CurrentValues.SetValues(faq);
         await context.SaveChangesAsync();
-        return exsisting;
+        return existing;
     }
 
-    public Task<int> GetMaxDisplayOrderAsync()
+    public async Task<int> GetMaxDisplayOrderAsync()
     {
-        throw new NotImplementedException();
+        var maxOrder = await context.Faqs.MaxAsync(f => (int?)f.DisplayOrder);
+        return maxOrder ?? 0;
     }
 }
