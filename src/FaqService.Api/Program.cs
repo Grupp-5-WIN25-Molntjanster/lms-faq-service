@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddFaqOpenApi();
 
 builder.Services.AddDbContext<FaqDbContext>(o =>
-o.UseInMemoryDatabase("FaqDb"));
+    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IFaqRepository, FaqRepository>();
 builder.Services.AddScoped<FaqManager>();

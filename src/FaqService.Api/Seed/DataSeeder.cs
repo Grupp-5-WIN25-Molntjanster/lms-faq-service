@@ -9,7 +9,7 @@ public static class DataSeeder
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<FaqDbContext>();
-        await context.Database.EnsureCreatedAsync();
+        await context.Database.MigrateAsync();
         if (!await context.Faqs.AnyAsync())
         {
             context.Faqs.AddRange(
