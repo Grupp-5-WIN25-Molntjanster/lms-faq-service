@@ -20,6 +20,19 @@ builder.Services.AddDbContext<FaqDbContext>(o =>
 builder.Services.AddScoped<IFaqRepository, FaqRepository>();
 builder.Services.AddScoped<FaqManager>();
 
+// allows CORS needed for next.js frontend to call the API
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+        // TODO: in production, restrict this to the actual frontend domain
+        //.WithOrigins("https://ditt-frontend.vercel.app")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 
@@ -35,6 +48,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
