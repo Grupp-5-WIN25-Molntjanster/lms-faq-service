@@ -47,7 +47,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// may be causing azure to crash
+//app.UseHttpsRedirection();
 
 app.UseCors();
 
@@ -56,6 +57,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // seeds initial data, in a real application this would be done via migrations or a separate seeding process
-await app.SeedDataAsync();
+try { await app.SeedDataAsync(); }
+catch (Exception ex) { app.Logger.LogError(ex, "Seeding failed"); }
 
 app.Run();
