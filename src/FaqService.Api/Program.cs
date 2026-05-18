@@ -6,8 +6,13 @@ using FaqService.Infrastructure.Contexts;
 using FaqService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using FaqService.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<ApiKeySecurityOptions>(builder.Configuration.GetSection(ApiKeySecurityOptions.SectionName));
+
+builder.Services.AddScoped<ApiKeyAuthFilter>();
 
 builder.Services.AddControllers();
 

@@ -1,11 +1,13 @@
 @FaqService.Api_HostAddress = http://localhost:5064
-
+@FaqService.Api_Key = a6c7e84b9d0c45cda31198d908011a64
 
 ### get all faqs
 GET {{FaqService.Api_HostAddress}}/api/faqs
+X-API-KEY : {{FaqService.Api_Key}}
 
 ### get faq by id
 GET {{FaqService.Api_HostAddress}}/api/faqs/1
+X-API-KEY : {{FaqService.Api_Key}}
 
 ### create faq
 POST {{FaqService.Api_HostAddress}}/api/faqs
