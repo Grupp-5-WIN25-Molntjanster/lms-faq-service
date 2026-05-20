@@ -39,6 +39,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 var app = builder.Build();
 
 
@@ -63,6 +65,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
