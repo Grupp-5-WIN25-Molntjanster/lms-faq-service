@@ -1,5 +1,4 @@
-﻿using FaqService.Api.Security;
-using FaqService.Application.DTOs;
+﻿using FaqService.Application.DTOs;
 using FaqService.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace FaqService.Api.Controllers;
 
 [Authorize]
-[ServiceFilter(typeof(ApiKeyAuthFilter))]
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]

@@ -7,13 +7,8 @@ using FaqService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using FaqService.Api.Security;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.Configure<ApiKeySecurityOptions>(builder.Configuration.GetSection(ApiKeySecurityOptions.SectionName));
-
-builder.Services.AddScoped<ApiKeyAuthFilter>();
 
 builder.Services.AddControllers();
 
@@ -48,15 +43,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 
-    var apiKeyOptions = app.Services.GetRequiredService<IOptions<ApiKeySecurityOptions>>();
-
     app.MapScalarApiReference("/docs", options =>
     {
         options.Title = "LMS FAQ API";
         options.Theme = ScalarTheme.Laserwave;
         options.DefaultHttpClient = new(ScalarTarget.CSharp, ScalarClient.HttpClient);
-        options.AddPreferredSecuritySchemes("ApiKey");
-        options.AddApiKeyAuthentication("ApiKey", apiKey => apiKey.Value = apiKeyOptions.Value.Value);
     });
 }
 
